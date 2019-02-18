@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="contaier-fluid">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -7,8 +7,14 @@
     <router-view/>
   </div>
 </template>
-
+<script>
+  import 'bootstrap';
+  export default {
+    name: 'App',
+  }
+</script>
 <style lang="scss">
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
