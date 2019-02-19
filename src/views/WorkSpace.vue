@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="work-space">
     <Translator/>
   </div>
 </template>
@@ -8,7 +8,7 @@
 // @ is an alias to /src
 import Translator from '@/components/Translator.vue'
 export default {
-  name: 'home',
+  name: 'WorkSpace',
   components: {
     Translator
   }
