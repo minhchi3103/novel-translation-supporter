@@ -1,11 +1,21 @@
 <template>
   <div id="translator-area">
     <div class="card">
+      <div class="card-header text-left">
+        Thông tin
+      </div>
+      <div class="card-body text-left">
+        <p class="card-text">Tiêu đề: {{novel_title}}</p>
+        <p class="card-text">Vol:{{novel_volume}}</p>
+        <p class="card-text">Chap:{{novel_chapter}}</p>
+      </div>
+    </div>
+    <div class="card">
       <div class="card-header text-left">Bản dịch</div>
       <div class="card-body">
-        <template v-if="novel_content.length>0">
+        <template v-if="novel_content&&novel_content.length>0">
           <div
-            class="row border p-1"
+            class="row border align-items-center p-1"
             v-for="(paragraph, index) in novel_content"
             :key="'paragraph-'+index"
             :id="'paragraph-'+index"
@@ -44,10 +54,11 @@
         </template>
         <template v-else>
           <div class="row">
-            <div class="col"><button class="btn btn-success" title="Add paragraph">
+            <div class="col">
+              <button class="btn btn-success" title="Add paragraph">
                 <font-awesome-icon icon="plus"/>
-              </button></div>
-            
+              </button>
+            </div>
           </div>
         </template>
       </div>
@@ -55,16 +66,17 @@
   </div>
 </template>
 <script>
-import AutosizeTextarea from "./AutosizeTextarea.vue";
+import AutosizeTextarea from "@/helpers/AutosizeTextarea.vue";
 var translate = require("yandex-translate")(process.env.VUE_APP_YANDEX_API_KEY);
 export default {
   data() {
-    return {
-      novel_name: "",
-      novel_volume: "",
-      novel_chapter: "",
-      novel_content: [{ source: "", translator: "" }]
-    };
+    return {};
+  },
+  props: {
+    novel_title: String,
+    novel_volume: String,
+    novel_chapter: String,
+    novel_content: Array,
   },
   methods: {
     autoTranslate: function(id) {
