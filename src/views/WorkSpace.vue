@@ -10,7 +10,6 @@
 // @ is an alias to /src
 import WorkSpaceTranslator from "@/components/WorkSpaceTranslator.vue"
 import WorkSpaceLoadFromJsonOldVersion from "@/components/WorkSpaceLoadFromJsonOldVersion.vue"
-import func from './vue-temp/vue-editor-bridge'
 export default {
   name: "WorkSpace",
   components: {
