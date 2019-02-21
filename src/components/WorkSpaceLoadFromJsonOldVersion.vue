@@ -3,7 +3,8 @@
     <div class="card">
       <div class="card-header text-left">Load From Json old version</div>
       <div class="card-body">
-        <input type="file" accept=".json" ref="fileInput" @change="loadDataFromJson">
+        <input type="file" accept=".json" @change="loadDataFromJson">
+        <button class="btn btn-success" @click="closeLoader">Load</button>
       </div>
     </div>
   </div>
@@ -12,7 +13,7 @@
 export default {
   data() {
     return {
-      translation_obj: Object
+      translation_obj: null
     };
   },
   methods: {
@@ -26,17 +27,22 @@ export default {
       reader.readAsText(input.files[0]);
     },
     convertToNewVersion: function(obj) {
-      this.translation_obj.novel_name = obj.info.title;
+      this.translation_obj= new Object;
+      this.translation_obj.novel_title = obj.info.title;
       this.translation_obj.novel_volume = "";
       this.translation_obj.novel_chapter = obj.info.chapter;
-      this.translation_obj.content = [];
+      this.translation_obj.novel_content = [];
       obj.content.forEach(item => {
         if (!item.isDeleted)
-          this.translation_obj.content.push({
+          this.translation_obj.novel_content.push({
             source: item.src,
             translator: item.dest
           });
       });
+    },
+    closeLoader: function () {
+      this.$emit('close',this.translation_obj);
+      this.translation_obj = null;
     }
   }
 };
