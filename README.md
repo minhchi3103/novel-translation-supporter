@@ -13,7 +13,7 @@ npm install
 ```
 ## Step 2: Config environment variable
 Rename .env.example in root to .env
-Get [Yandex api key here]([MIT](https://choosealicense.com/licenses/mit/)).
+Get [Yandex api key here](https://translate.yandex.com/developers/keys).
 
 Set VUE_APP_YANDEX_API_KEY in .env
 
@@ -29,4 +29,4 @@ npm run build
 ```
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/minhchi3103/novel-translation-supporter.git)
