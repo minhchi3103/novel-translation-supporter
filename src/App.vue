@@ -8,9 +8,15 @@
   </div>
 </template>
 <script>
-  import 'bootstrap';
+  import 'bootstrap'
   export default {
     name: 'App',
+    metaInfo: {
+      // if no subcomponents specify a metaInfo.title, this title will be used
+      title: 'Translator tool Developed by Shinryak',
+      // all titles will be injected into this template
+      titleTemplate: '%s | Translator tool Developed by Shinryak'
+    }
   }
 </script>
 <style lang="scss">

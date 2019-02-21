@@ -1,16 +1,31 @@
 <template>
   <div class="work-space">
-    <Translator/>
+    <WorkSpaceTranslator v-if="false"/>
+    <WorkSpaceLoadFromJsonOldVersion/>
+
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Translator from '@/components/Translator.vue'
+import WorkSpaceTranslator from "@/components/WorkSpaceTranslator.vue"
+import WorkSpaceLoadFromJsonOldVersion from "@/components/WorkSpaceLoadFromJsonOldVersion.vue"
+import func from './vue-temp/vue-editor-bridge'
 export default {
-  name: 'WorkSpace',
+  name: "WorkSpace",
   components: {
-    Translator
+    WorkSpaceTranslator,
+    WorkSpaceLoadFromJsonOldVersion
+  },
+  metaInfo: {
+      title: 'Công cụ dịch thuật',
+    },
+  data(){
+    return {
+      translationData:Object,
+    }
+  },
+  methods:{
   }
-}
+};
 </script>

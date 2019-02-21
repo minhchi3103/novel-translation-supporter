@@ -16,6 +16,7 @@
     "jquery": "^3.3.1",
     "popper.js": "^1.14.7",
     "vue": "^2.5.22",
+    "vue-meta": "^1.5.8",
     "vue-router": "^3.0.1",
     "yandex-translate": "^2.1.2"
   },
@@ -40,10 +41,7 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "plugins": [
-    ],
-    "rules": {
-    },
+    "plugins": [],
     "parserOptions": {
       "parser": "babel-eslint"
     }
