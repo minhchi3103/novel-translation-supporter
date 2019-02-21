@@ -1,5 +1,5 @@
 <template>
-  <textarea @input="updateContent" :value="value" :name="name"/>
+  <textarea @input="updateContent" :value="value" :name="name" :rows="rows"/>
 </template>
 <script>
 import autosize from 'autosize';
@@ -12,7 +12,7 @@ export default {
       default: ""
     },
     rows: {
-      default: 1
+      default: 2
     },
     placeholder: {
       default: ""
