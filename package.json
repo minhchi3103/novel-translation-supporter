@@ -1,6 +1,6 @@
 {
   "name": "novel-translation-supporter",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -57,5 +57,24 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "description": "Novel translation supporter",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhchi3103/novel-translation-supporter.git"
+  },
+  "keywords": [
+    "vuejs",
+    "vue",
+    "novel",
+    "translation",
+    "tools"
+  ],
+  "author": "shinryak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minhchi3103/novel-translation-supporter/issues"
+  },
+  "homepage": "https://github.com/minhchi3103/novel-translation-supporter#readme"
 }
