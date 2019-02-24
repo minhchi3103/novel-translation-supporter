@@ -1,8 +1,8 @@
 <template>
-  <textarea @input="updateContent" :value="value" :name="name" :rows="rows"/>
+  <textarea @blur="updateContent" :value="value" :name="name" :rows="rows"/>
 </template>
 <script>
-import autosize from 'autosize';
+import autosize from "autosize";
 export default {
   props: {
     name: {
@@ -21,9 +21,13 @@ export default {
   mounted() {
     autosize(this.$el);
   },
-  watch:{
+  watch: {
     value: function() {
-      autosize.update(this.$el);
+      this.$nextTick(
+        function() {
+          autosize.update(this.$el);
+        }.bind(this)
+      );
     }
   },
   methods: {
