@@ -18,10 +18,6 @@ export default new Router({
       path: '/work-space',
       name: 'work-space',
       component: WorkSpace,
-      children:[{
-        path:'load-old-version',
-        name:'load-from-json-old-version'
-      }]
     },
     {
       path: '/about',

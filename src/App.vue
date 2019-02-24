@@ -21,6 +21,7 @@
 </script>
 <style lang="scss">
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../node_modules/vuejs-dialog/dist/vuejs-dialog.min.css';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,4 +39,5 @@
     }
   }
 }
+body    {overflow-y:scroll;}
 </style>

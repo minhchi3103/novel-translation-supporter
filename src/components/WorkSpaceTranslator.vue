@@ -5,9 +5,9 @@
         Thông tin
       </div>
       <div class="card-body text-left">
-        <p class="card-text">Tiêu đề: {{novel_title}}</p>
-        <p class="card-text">Vol:{{novel_volume}}</p>
-        <p class="card-text">Chap:{{novel_chapter}}</p>
+        <p class="card-text">Tiêu đề: <EditText v-model="novel_title"/></p>
+        <p class="card-text">Vol: <EditText v-model="novel_volume"/></p>
+        <p class="card-text">Chap: <EditText v-model="novel_chapter"/></p>
       </div>
     </div>
     <div class="card">
@@ -67,6 +67,7 @@
 </template>
 <script>
 import AutosizeTextarea from "@/helpers/AutosizeTextarea.vue";
+import EditText from "@/helpers/EditText.vue";
 var translate = require("yandex-translate")(process.env.VUE_APP_YANDEX_API_KEY);
 export default {
   data() {
@@ -92,7 +93,8 @@ export default {
     }
   },
   components: {
-    AutosizeTextarea
+    AutosizeTextarea,
+    EditText
   }
 };
 </script>
