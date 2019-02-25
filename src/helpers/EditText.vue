@@ -1,5 +1,5 @@
 <template>
-  <input v-if="editable==true" type="text" v-model="value" @blur="updateAndExit">
+  <input v-if="editable==true" type="text" :value="value" @blur="updateAndExit">
   <font v-else>
     {{value}}
     <font-awesome-icon icon="edit" @click="editable=true" :title="title"/>
@@ -36,7 +36,7 @@ export default {
   methods: {
     updateAndExit: function() {
       this.editable = false;
-      this.$emit("input", this.value);
+      this.$emit("input", this.$el.value);
     }
   }
 };

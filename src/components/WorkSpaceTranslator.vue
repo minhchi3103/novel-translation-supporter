@@ -1,13 +1,17 @@
 <template>
   <div id="translator-area">
     <div class="card">
-      <div class="card-header text-left">
-        Thông tin
-      </div>
+      <div class="card-header text-left">Thông tin</div>
       <div class="card-body text-left">
-        <p class="card-text">Tiêu đề: <EditText v-model="novel_title"/></p>
-        <p class="card-text">Vol: <EditText v-model="novel_volume"/></p>
-        <p class="card-text">Chap: <EditText v-model="novel_chapter"/></p>
+        <p class="card-text">Tiêu đề:
+          <EditText v-model="novel_title"/>
+        </p>
+        <p class="card-text">Vol:
+          <EditText v-model="novel_volume"/>
+        </p>
+        <p class="card-text">Chap:
+          <EditText v-model="novel_chapter"/>
+        </p>
       </div>
     </div>
     <div class="card">
@@ -70,14 +74,42 @@ import AutosizeTextarea from "@/helpers/AutosizeTextarea.vue";
 import EditText from "@/helpers/EditText.vue";
 var translate = require("yandex-translate")(process.env.VUE_APP_YANDEX_API_KEY);
 export default {
-  data() {
-    return {};
-  },
   props: {
-    novel_title: String,
-    novel_volume: String,
-    novel_chapter: String,
-    novel_content: Array,
+    title: String,
+    volume: String,
+    chapter: String,
+    content: Array
+  },
+  computed: {
+    novel_title: function() {
+      return this.title;
+    },
+    novel_volume: function() {
+      return this.volume;
+    },
+    novel_chapter: function() {
+      return this.chapter;
+    },
+    novel_content: function() {
+      return this.content;
+    }
+  },
+  watch: {
+    novel_title: function() {
+      this.$emit("updateTitle", this.novel_title);
+    },
+    novel_volume: function() {
+      this.$emit("updateVolume", this.novel_volume);
+    },
+    novel_chapter: function() {
+      this.$emit("updateChapter", this.novel_chapter);
+    }
+    // novel_content: {
+    //   handler: function() {
+    //     this.$emit("updateContent", this.novel_content);
+    //   },
+    //   deep: true
+    // }
   },
   methods: {
     autoTranslate: function(id) {

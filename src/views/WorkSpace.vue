@@ -1,34 +1,32 @@
 <template>
   <div class="work-space">
-    <button
-      class="btn btn-primary"
-      @click="load_mode='new-translation'"
-    >New</button>
-    <button
-      class="btn btn-primary"
-      @click="load_mode='load-old-json-version'"
-    >Load Old Version</button>
-    <button
-      class="btn btn-primary"
-      @click="load_mode='load-local-storage'"
-    >Load From Web Storage</button>
+    <button class="btn btn-primary" @click="load_mode='new-translation'">New</button>
+    <button class="btn btn-primary" @click="load_mode='load-old-json-version'">Load Old Version</button>
+    <button class="btn btn-primary" @click="load_mode='load-local-storage'">Load From Web Storage</button>
     <button class="btn btn-primary" @click="saveToLocalStorage">Save to Local</button>
-    <button class="btn btn-primary">Save as...</button>
+    <button class="btn btn-primary" @click="saveJsonTranslation">Save as...</button>
     <button class="btn btn-primary" @click="copyTranslatedText">Copy</button>
     <transition name="bounce">
-      <WorkSpaceLoadFromJsonOldVersion v-if="load_mode=='load-old-json-version'" @close="loadDataObject"/>
-      <WorkSpaceLoadFromLocalStorage v-if="load_mode=='load-local-storage'" @close="loadDataObject"/>
+      <WorkSpaceLoadFromJsonOldVersion
+        v-if="load_mode=='load-old-json-version'"
+        @close="loadDataObject"
+      />
+      <WorkSpaceLoadFromLocalStorage
+        v-if="load_mode=='load-local-storage'"
+        @close="loadDataObject"
+      />
       <WorkSpaceNewTranslation v-if="load_mode=='new-translation'" @close="loadDataObject"/>
-      <WorkSpaceTranslator v-if="load_mode==''"
-      :novel_title="novel_title"
-      :novel_volume="novel_volume"
-      :novel_chapter="novel_chapter"
-      :novel_content="novel_content"
-      @updateTitle="updateTitle"
-      @updateVolume="updateVolume"
-      @updateChapter="updateChapter"
-      @updateContent="updateContent"
-    />
+      <WorkSpaceTranslator
+        v-if="load_mode==''"
+        :title="novel_title"
+        :volume="novel_volume"
+        :chapter="novel_chapter"
+        :content="novel_content"
+        @updateTitle="updateTitle"
+        @updateVolume="updateVolume"
+        @updateChapter="updateChapter"
+        @updateContent="updateContent"
+      />
     </transition>
   </div>
 </template>
@@ -39,7 +37,8 @@ import WorkSpaceTranslator from "@/components/WorkSpaceTranslator.vue";
 import WorkSpaceNewTranslation from "@/components/WorkSpaceNewTranslation.vue";
 import WorkSpaceLoadFromJsonOldVersion from "@/components/WorkSpaceLoadFromJsonOldVersion.vue";
 import WorkSpaceLoadFromLocalStorage from "@/components/WorkSpaceLoadFromLocalStorage.vue";
-import copyTextToClipboard from 'copy-text-to-clipboard'
+import copyTextToClipboard from "copy-text-to-clipboard";
+import downloadJsonText from "@/assets/js/download-json-text";
 export default {
   name: "WorkSpace",
   components: {
@@ -57,7 +56,7 @@ export default {
       novel_volume: "",
       novel_chapter: "",
       novel_content: [],
-      load_mode: "",
+      load_mode: ""
     };
   },
   methods: {
@@ -87,19 +86,32 @@ export default {
       localStorage.setItem(name, JSON.stringify(objStorage));
     },
     updateTitle: function(str) {
-      this.novel_title=str;
+      this.novel_title = str;
     },
     updateVolume: function(str) {
-      this.novel_volume=str;
+      this.novel_volume = str;
     },
     updateChapter: function(str) {
-      this.novel_chapter=str;
+      this.novel_chapter = str;
     },
-    updateContent: function(obj) {
-      this.novel_content=obj;
+    /**
+     * this method not needed because if array shallow
+     */
+    updateContent: function(arr) {
+      this.novel_content = arr;
     },
-    copyTranslatedText: function(){
-      copyTextToClipboard(this.novel_content.map(x=>x.translator).join("\n"));
+    copyTranslatedText: function() {
+      copyTextToClipboard(this.novel_content.map(x => x.translator).join("\n"));
+    },
+    saveJsonTranslation: function() {
+      let name =
+        "TRANS_" +
+        this.novel_title +
+        "_" +
+        this.novel_volume +
+        "_" +
+        this.novel_chapter;
+      downloadJsonText(name + ".json", JSON.stringify(this.$data));
     }
   }
 };
