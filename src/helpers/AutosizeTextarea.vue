@@ -1,5 +1,5 @@
 <template>
-  <textarea @blur="updateContent" :value="value" :name="name" :rows="rows"/>
+  <textarea @blur="updateContent" @keyup.enter="updateContent" :value="value" :name="name" :rows="rows"/>
 </template>
 <script>
 import autosize from "autosize";

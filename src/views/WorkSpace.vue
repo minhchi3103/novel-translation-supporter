@@ -94,9 +94,6 @@ export default {
     updateChapter: function(str) {
       this.novel_chapter = str;
     },
-    /**
-     * this method not needed because if array shallow
-     */
     updateContent: function(arr) {
       this.novel_content = arr;
     },

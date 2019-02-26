@@ -24,7 +24,7 @@
             :key="'paragraph-'+index"
             :id="'paragraph-'+index"
           >
-            <div class="col-5">
+            <div class="col-5" @keyup.enter="breakSource(index)">
               <AutosizeTextarea
                 class="form-control"
                 :id="'p-source-'+index"
@@ -80,19 +80,13 @@ export default {
     chapter: String,
     content: Array
   },
-  computed: {
-    novel_title: function() {
-      return this.title;
-    },
-    novel_volume: function() {
-      return this.volume;
-    },
-    novel_chapter: function() {
-      return this.chapter;
-    },
-    novel_content: function() {
-      return this.content;
-    }
+  data() {
+    return {
+      novel_title: this.title,
+      novel_volume: this.volume,
+      novel_chapter: this.chapter,
+      novel_content: this.content.map(x => ({ ...x }))
+    };
   },
   watch: {
     novel_title: function() {
@@ -103,13 +97,13 @@ export default {
     },
     novel_chapter: function() {
       this.$emit("updateChapter", this.novel_chapter);
+    },
+    novel_content: {
+      handler: function() {
+        this.$emit("updateContent", this.novel_content);
+      },
+      deep: true
     }
-    // novel_content: {
-    //   handler: function() {
-    //     this.$emit("updateContent", this.novel_content);
-    //   },
-    //   deep: true
-    // }
   },
   methods: {
     autoTranslate: function(id) {
@@ -122,6 +116,19 @@ export default {
           }
         }.bind(this)
       );
+    },
+    breakSource: function(id) {
+      //break paragraph
+      let arr = this.novel_content[id].source
+        .split("\n")
+        .map((x, key) => {
+          return {
+            source: x,
+            translator: key > 0 ? "" : this.novel_content[id].translator
+          };
+        })
+        .filter(x => !(/^\s*$/.test(x.source) || x.source == ""));
+      this.novel_content.splice(id, 1, ...arr);
     }
   },
   components: {
