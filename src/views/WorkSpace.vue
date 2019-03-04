@@ -1,11 +1,47 @@
 <template>
   <div class="work-space">
-    <button class="btn btn-primary" @click="load_mode='new-translation'">New</button>
-    <button class="btn btn-primary" @click="load_mode='load-old-json-version'">Load Old Version</button>
-    <button class="btn btn-primary" @click="load_mode='load-local-storage'">Load From Web Storage</button>
-    <button class="btn btn-primary" @click="saveToLocalStorage">Save to Local</button>
-    <button class="btn btn-primary" @click="saveJsonTranslation">Save as...</button>
-    <button class="btn btn-primary" @click="copyTranslatedText">Copy</button>
+    <div class="col-6 ml-auto sticky-top">
+      <div class="d-flex flex-row-reverse">
+        <button class="btn btn-primary" @click="load_mode='new-translation'">New</button>
+        <button class="btn btn-primary" @click="copyTranslatedText">Copy</button>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            id="load-data"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Load</button>
+          <div class="dropdown-menu" aria-labelledby="load-data">
+            <a
+              class="dropdown-item"
+              href="#"
+              @click.prevent="load_mode='load-local-storage'"
+            >Browser storage</a>
+            <a
+              class="dropdown-item"
+              href="#"
+              @click.prevent="load_mode='load-old-json-version'"
+            >Old Json Ver.</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            id="save-data"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Save</button>
+          <div class="dropdown-menu" aria-labelledby="save-data">
+            <a class="dropdown-item" href="#" @click.prevent="saveToLocalStorage">Browser storage</a>
+            <a class="dropdown-item" href="#" @click.prevent="saveJsonTranslation">JSON</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <transition name="bounce">
       <WorkSpaceLoadFromJsonOldVersion
         v-if="load_mode=='load-old-json-version'"
