@@ -32,7 +32,7 @@
               />
             </div>
             <div class="col-1">
-              <button class="btn btn-info" title="Copy text">
+              <button class="btn btn-info" title="Copy text" @click="copySourceText(index)">
                 <font-awesome-icon icon="copy"/>
               </button>
               <button class="btn btn-info" @click="autoTranslate(index)" title="Translate text">
@@ -72,6 +72,7 @@
 <script>
 import AutosizeTextarea from "@/helpers/AutosizeTextarea.vue";
 import EditText from "@/helpers/EditText.vue";
+import copyTextToClipboard from "copy-text-to-clipboard";
 var translate = require("yandex-translate")(process.env.VUE_APP_YANDEX_API_KEY);
 export default {
   props: {
@@ -129,6 +130,9 @@ export default {
         })
         .filter(x => !(/^\s*$/.test(x.source) || x.source == ""));
       this.novel_content.splice(id, 1, ...arr);
+    },
+    copySourceText: function(id) {
+      copyTextToClipboard(this.novel_content[id].source)
     }
   },
   components: {
