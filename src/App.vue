@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="contaier-fluid">
-    <NavBar class="sticky-top"/>
-    <router-view/>
+  <div id="app">
+    <NavBar class="fixed-top"/>
+    <router-view class="contaier-fluid main"/>
   </div>
 </template>
 <script>
@@ -39,5 +39,8 @@ export default {
       color: #42b983;
     }
   }
+}
+.main {
+  margin-top: 56px;
 }
 </style>

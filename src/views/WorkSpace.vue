@@ -1,44 +1,55 @@
 <template>
   <div class="work-space">
-    <div class="col-6 ml-auto sticky-top">
-      <div class="d-flex flex-row-reverse">
-        <button class="btn btn-primary" @click="load_mode='new-translation'">New</button>
-        <button class="btn btn-primary" @click="copyTranslatedText">Copy</button>
-        <div class="dropdown">
-          <button
-            class="btn btn-primary dropdown-toggle"
-            type="button"
-            id="load-data"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >Load</button>
-          <div class="dropdown-menu" aria-labelledby="load-data">
-            <a
-              class="dropdown-item"
-              href="#"
-              @click.prevent="load_mode='load-local-storage'"
-            >Browser storage</a>
-            <a
-              class="dropdown-item"
-              href="#"
-              @click.prevent="load_mode='load-old-json-version'"
-            >Old Json Ver.</a>
+    <div class="row sticky-top action-bar mx-1">
+      <div class="col-8">
+        <div class="row">
+          <button class="btn btn-primary" @click="load_mode='new-translation'">New</button>
+          <button class="btn btn-primary" @click="saveToLocalStorage">Quick save</button>
+          <div class="dropdown">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              type="button"
+              id="load-data"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >Load</button>
+            <div class="dropdown-menu" aria-labelledby="load-data">
+              <a
+                class="dropdown-item"
+                href="#"
+                @click="load_mode='load-local-storage'"
+              >Browser storage</a>
+              <!-- <a
+                class="dropdown-item"
+                href="#"
+                @click.prevent="load_mode='load-old-json-version'"
+              >Old Json Ver.</a> -->
+              <a
+                class="dropdown-item"
+                href="#"
+                @click.prevent="load_mode='load-json'"
+              >JSON</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              type="button"
+              id="save-data"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >Save as</button>
+            <div class="dropdown-menu" aria-labelledby="save-data">
+              <a class="dropdown-item" href="#" @click.prevent="saveJsonTranslation">JSON</a>
+            </div>
           </div>
         </div>
-        <div class="dropdown">
-          <button
-            class="btn btn-primary dropdown-toggle"
-            type="button"
-            id="save-data"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >Save</button>
-          <div class="dropdown-menu" aria-labelledby="save-data">
-            <a class="dropdown-item" href="#" @click.prevent="saveToLocalStorage">Browser storage</a>
-            <a class="dropdown-item" href="#" @click.prevent="saveJsonTranslation">JSON</a>
-          </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex flex-row-reverse">
+          <button class="btn btn-primary" @click="copyTranslatedText">Copy</button>
         </div>
       </div>
     </div>
@@ -47,13 +58,17 @@
         v-if="load_mode=='load-old-json-version'"
         @close="loadDataObject"
       />
+      <WorkSpaceLoadFromJson
+        v-if="load_mode=='load-json'"
+        @close="loadDataObject"
+      />
       <WorkSpaceLoadFromLocalStorage
         v-if="load_mode=='load-local-storage'"
         @close="loadDataObject"
       />
       <WorkSpaceNewTranslation v-if="load_mode=='new-translation'" @close="loadDataObject"/>
       <WorkSpaceTranslator
-        v-if="load_mode==''"
+        v-if="load_mode=='work-space'"
         :title="novel_title"
         :volume="novel_volume"
         :chapter="novel_chapter"
@@ -72,7 +87,9 @@
 import WorkSpaceTranslator from "@/components/WorkSpaceTranslator.vue";
 import WorkSpaceNewTranslation from "@/components/WorkSpaceNewTranslation.vue";
 import WorkSpaceLoadFromJsonOldVersion from "@/components/WorkSpaceLoadFromJsonOldVersion.vue";
+import WorkSpaceLoadFromJson from "@/components/WorkSpaceLoadFromJson.vue";
 import WorkSpaceLoadFromLocalStorage from "@/components/WorkSpaceLoadFromLocalStorage.vue";
+
 import copyTextToClipboard from "copy-text-to-clipboard";
 import downloadJsonText from "@/assets/js/download-json-text";
 export default {
@@ -80,6 +97,7 @@ export default {
   components: {
     WorkSpaceTranslator,
     WorkSpaceLoadFromJsonOldVersion,
+    WorkSpaceLoadFromJson,
     WorkSpaceLoadFromLocalStorage,
     WorkSpaceNewTranslation
   },
@@ -92,7 +110,7 @@ export default {
       novel_volume: "",
       novel_chapter: "",
       novel_content: [],
-      load_mode: ""
+      load_mode: "new-translation"
     };
   },
   methods: {
@@ -103,7 +121,7 @@ export default {
         this.novel_chapter = obj.novel_chapter;
         this.novel_content = obj.novel_content;
       }
-      this.load_mode = "";
+      this.load_mode = "work-space";
     },
     saveToLocalStorage: function() {
       let name =
@@ -175,6 +193,9 @@ export default {
   100% {
     transform: scale(1);
   }
+}
+.action-bar {
+  top: 56px;
 }
 </style>
 

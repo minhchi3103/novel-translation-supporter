@@ -33,7 +33,7 @@
               <td scope="row">{{index+1}}</td>
               <td>{{item.novel_title}}</td>
               <td>{{item.novel_volume}}</td>
-              <td>{{item.novel_chapter}}</td>
+              <td class="text-left">{{item.novel_chapter}}</td>
               <td>
                 <button class="btn btn-danger" @click.stop="deleteTranslation(index)">
                   <font-awesome-icon icon="times"/>
